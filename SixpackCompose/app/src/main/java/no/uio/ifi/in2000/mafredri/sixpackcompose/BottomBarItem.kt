@@ -7,7 +7,7 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomBarItem(val route: String, val urlIcon: String, val label: String) {
-    object Home : BottomBarItem("home", "https://github.com/mariusfredrichsen/egen/tree/main/SixpackCompose/images/home.png", "Home")
-    object Workouts : BottomBarItem("workouts", "https://github.com/mariusfredrichsen/egen/tree/main/SixpackCompose/images/create.png", "Workouts")
-    object CreateWorkout : BottomBarItem("excersice", "https://github.com/mariusfredrichsen/egen/blob/main/SixpackCompose/images/add.png", "CreateWorkout")
+    object Home : BottomBarItem("home", "https://raw.githubusercontent.com/mariusfredrichsen/SixpackCompose/main/images/home.png", "Home")
+    object CreateWorkout : BottomBarItem("workout", "https://raw.githubusercontent.com/mariusfredrichsen/SixpackCompose/main/images/create.png", "Create Workout")
+    object CreateExcercise : BottomBarItem("exercise", "https://raw.githubusercontent.com/mariusfredrichsen/SixpackCompose/main/images/add.png", "Create Exercise")
 }

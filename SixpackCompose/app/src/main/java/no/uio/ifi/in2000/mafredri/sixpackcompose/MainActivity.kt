@@ -59,7 +59,8 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(navController, startDestination = BottomBarItem.Home.route) {
                             composable(BottomBarItem.Home.route) { HomeScreen() }
-                            composable(BottomBarItem.CreateWorkout.route) { CreateWorkoutScreen() }
+                            composable(BottomBarItem.CreateWorkout.route) { WorkoutScreen() }
+                            composable(BottomBarItem.CreateExcercise.route) { ExerciseScreen() }
                         }
                     }
                 }
@@ -76,7 +77,7 @@ fun BottomBar(navController: NavController) {
         contentColor = Color(0xFFFFE0B2),
         containerColor = Color(0xFFFFB74D)
     ) {
-        listOf(BottomBarItem.Home, BottomBarItem.CreateWorkout).forEachIndexed { index, item ->
+        listOf(BottomBarItem.Home, BottomBarItem.CreateWorkout, BottomBarItem.CreateExcercise).forEachIndexed { index, item ->
             NavigationBarItem(
                 selected = selectedItem == index,
                 onClick = { selectedItem = index; navController.navigate(item.route) },
