@@ -26,4 +26,15 @@ class ExerciseViewModel: ViewModel() {
             }
         }
     }
+
+    fun remove(index: Int) {
+        viewModelScope.launch {
+            _exercisesUIState.value.exercises.removeAt(index)
+            _exercisesUIState.update {
+                it.copy(
+
+                )
+            }
+        }
+    }
 }
