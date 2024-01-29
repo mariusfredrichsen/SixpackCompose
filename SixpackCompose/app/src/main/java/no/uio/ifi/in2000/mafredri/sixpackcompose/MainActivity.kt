@@ -26,6 +26,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
@@ -53,6 +55,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val exerciseVM: ExerciseViewModel = viewModel()
+
                     val navController = rememberNavController()
                     Scaffold(
                         bottomBar = { BottomBar(navController) }
@@ -60,7 +64,7 @@ class MainActivity : ComponentActivity() {
                         NavHost(navController, startDestination = BottomBarItem.Home.route) {
                             composable(BottomBarItem.Home.route) { HomeScreen() }
                             composable(BottomBarItem.CreateWorkout.route) { WorkoutScreen() }
-                            composable(BottomBarItem.CreateExcercise.route) { ExerciseScreen() }
+                            composable(BottomBarItem.CreateExcercise.route) { ExerciseScreen(exerciseVM) }
                         }
                     }
                 }
