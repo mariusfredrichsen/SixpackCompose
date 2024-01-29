@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -25,17 +26,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.times
 import androidx.navigation.NavHostController
 
 @Composable
 fun HomeScreen() {
-    val testList = listOf("Workout 1", "Workout 2", "Workout 3", "Workout 4", "Workout 5")
+    val testList = listOf(Workout("Pull1"), Workout("Pull2"), Workout("Push1"), Workout("Push2"), Workout("Legs1"), Workout("Legs2"))
     Column(
         modifier = Modifier
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
+            .height((testList.size*110+300).dp)
     ) {
         Text(
             text = "Current workout",
@@ -65,7 +69,7 @@ fun HomeScreen() {
                 .padding(top = 20.dp)
         )
 
-        testList.forEach {
+        testList.forEach {workout ->
             Row(
                 modifier = Modifier.padding(top = 12.dp)
             ) {
@@ -78,7 +82,7 @@ fun HomeScreen() {
                         .clickable { }
                 ) {
                     Text(
-                        text = it,
+                        text = workout.name,
                         modifier = Modifier.padding(8.dp)
                     )
                 }
