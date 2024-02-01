@@ -42,10 +42,10 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "AuthLeak")
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val connectionString = "mongodb+srv://marius:@discord.7b4in8d.mongodb.net/?retryWrites=true&w=majority"
-        val serverApi = ServerApi.builder()
-            .version(ServerApiVersion.V1)
-            .build()
+        /*val connectionString = "mongodb+srv://marius:po2XxJKx9NQC7P4U@discord.7b4in8d.mongodb.net/"
+        val mongoClient = MongoClient.create(connectionString)
+        val database = mongoClient.getDatabase("SixpackCompose")
+        println(database.name) */
 
         super.onCreate(savedInstanceState)
         setContent {

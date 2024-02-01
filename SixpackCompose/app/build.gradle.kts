@@ -72,6 +72,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation(kotlin("reflect"))
-    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
+    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
 }
