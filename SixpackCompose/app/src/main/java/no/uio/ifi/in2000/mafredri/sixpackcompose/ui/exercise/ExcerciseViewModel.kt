@@ -3,39 +3,42 @@ package no.uio.ifi.in2000.mafredri.sixpackcompose.ui.exercise
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import no.uio.ifi.in2000.mafredri.sixpackcompose.data.exercises.ExercisesRepository
 import no.uio.ifi.in2000.mafredri.sixpackcompose.model.Exercise
 
-data class ExercisesUIState(
-    val exercises: MutableList<Exercise> = mutableListOf() // TODO: legg til noe som henter fra databasen
-)
-
 class ExerciseViewModel: ViewModel() {
-    private val _exercisesUIState = MutableStateFlow(ExercisesUIState())
-    val exercisesUiState: StateFlow<ExercisesUIState> = _exercisesUIState.asStateFlow()
+    private val exercisesRepository = ExercisesRepository()
 
-    fun add(newExercise: Exercise) {
+    val exercisesUIState = exercisesRepository.loadExercises()
+        .map { ExercisesUIState(exercises = it) }
+        .stateIn(
+            viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = ExercisesUIState()
+        )
+
+    fun addExercise(newExercise: Exercise) {
         viewModelScope.launch {
-            _exercisesUIState.value.exercises.add(newExercise)
-            _exercisesUIState.update {
-                it.copy(
-
-                )
-            }
+            exercisesRepository.addExercise(newExercise)
         }
     }
 
-    fun remove(index: Int) {
+    fun removeExercise(oldExercise: Exercise) {
         viewModelScope.launch {
-            _exercisesUIState.value.exercises.removeAt(index)
-            _exercisesUIState.update {
-                it.copy(
+            exercisesRepository.removeExercise(oldExercise)
+        }
+    }
 
-                )
-            }
+    init {
+        viewModelScope.launch {
+            exercisesRepository.fetchExercises()
         }
     }
 }

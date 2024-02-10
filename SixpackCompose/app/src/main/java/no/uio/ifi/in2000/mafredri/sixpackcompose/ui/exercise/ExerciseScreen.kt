@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -41,10 +42,13 @@ import no.uio.ifi.in2000.mafredri.sixpackcompose.model.Exercise
 
 @Composable
 fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
+    val exercisesUIState by exerciseViewModel.exercisesUIState.collectAsState()
+
     var exerciseName by remember { mutableStateOf("") }
     var exerciseDesc by remember { mutableStateOf("") }
+
     var errorColor by remember { mutableStateOf(Color.DarkGray) }
-    val exercisesUI by exerciseViewModel.exercisesUiState.collectAsState()
+
     val focusManager = LocalFocusManager.current
 
     Column(
@@ -94,7 +98,7 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
                             errorColor = Color.Red
                         } else {
                             errorColor = Color.DarkGray
-                            exerciseViewModel.add(Exercise(exerciseName, exerciseDesc))
+                            exerciseViewModel.addExercise(Exercise(exerciseName, exerciseDesc))
                             exerciseName = ""
                             exerciseDesc = ""
                         }
@@ -116,7 +120,7 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
         )
         LazyColumn(
         ) {
-            itemsIndexed(exercisesUI.exercises) { index, exercise ->
+            items(exercisesUIState.exercises) { exercise ->
                 Row(
                     modifier = Modifier
 
@@ -136,7 +140,7 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = exercise.desc + "\n${exercisesUI.exercises.size}",
+                            text = exercise.desc + "\n${exercisesUIState.exercises.size}",
                             fontSize = 12.sp,
                             lineHeight = 14.sp
                         )
@@ -149,7 +153,7 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
                         modifier = Modifier
                             .size(20.dp)
                             .clickable {
-                                exerciseViewModel.remove(index)
+                                exerciseViewModel.removeExercise(exercise)
 
                             }
                     )
