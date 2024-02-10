@@ -18,7 +18,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import no.uio.ifi.in2000.mafredri.sixpackcompose.ui.theme.SixpackComposeTheme
-import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -26,16 +25,15 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.mongodb.ConnectionString
-import com.mongodb.MongoClientSettings
 import com.mongodb.ServerApi
 import com.mongodb.ServerApiVersion
-import com.mongodb.kotlin.client.coroutine.MongoClient
-import kotlinx.coroutines.runBlocking
-import org.bson.Document
+import no.uio.ifi.in2000.mafredri.sixpackcompose.ui.BottomBarItem
+import no.uio.ifi.in2000.mafredri.sixpackcompose.ui.exercise.ExerciseScreen
+import no.uio.ifi.in2000.mafredri.sixpackcompose.ui.exercise.ExerciseViewModel
+import no.uio.ifi.in2000.mafredri.sixpackcompose.ui.home.HomeScreen
+import no.uio.ifi.in2000.mafredri.sixpackcompose.ui.workout.WorkoutScreen
 
 
 class MainActivity : ComponentActivity() {

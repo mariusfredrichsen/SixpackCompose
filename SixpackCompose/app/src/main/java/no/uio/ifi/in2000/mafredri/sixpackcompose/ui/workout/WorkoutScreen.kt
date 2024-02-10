@@ -1,4 +1,4 @@
-package no.uio.ifi.in2000.mafredri.sixpackcompose
+package no.uio.ifi.in2000.mafredri.sixpackcompose.ui.workout
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
