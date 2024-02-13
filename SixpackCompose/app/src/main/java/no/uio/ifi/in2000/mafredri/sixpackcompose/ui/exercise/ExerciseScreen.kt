@@ -21,10 +21,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,7 +50,12 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
     var exerciseDesc by remember { mutableStateOf("") }
 
     var errorColor by remember { mutableStateOf(Color.DarkGray) }
+<<<<<<< HEAD:SixpackCompose/app/src/main/java/no/uio/ifi/in2000/mafredri/sixpackcompose/ExerciseScreen.kt
+    val exercisesUI by exerciseViewModel.exercisesUiState.collectAsState()
+    val state = rememberUpdatedState(exercisesUI.exercises)
+=======
 
+>>>>>>> 31641bcfdb5df1a2a01e39429b802061c92eab4d:SixpackCompose/app/src/main/java/no/uio/ifi/in2000/mafredri/sixpackcompose/ui/exercise/ExerciseScreen.kt
     val focusManager = LocalFocusManager.current
 
     Column(
@@ -120,7 +127,11 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
         )
         LazyColumn(
         ) {
+<<<<<<< HEAD:SixpackCompose/app/src/main/java/no/uio/ifi/in2000/mafredri/sixpackcompose/ExerciseScreen.kt
+            itemsIndexed(state.value) { index, exercise ->
+=======
             items(exercisesUIState.exercises) { exercise ->
+>>>>>>> 31641bcfdb5df1a2a01e39429b802061c92eab4d:SixpackCompose/app/src/main/java/no/uio/ifi/in2000/mafredri/sixpackcompose/ui/exercise/ExerciseScreen.kt
                 Row(
                     modifier = Modifier
 

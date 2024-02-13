@@ -78,7 +78,15 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:$ktor_version")
 
     implementation("io.coil-kt:coil-compose:2.5.0")
+<<<<<<< HEAD
+    implementation("androidx.navigation:navigation-compose:2.7.6")
+    implementation(kotlin("reflect"))
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
+    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
+=======
 
     val nav_version = "2.7.6"
     implementation("androidx.navigation:navigation-compose:$nav_version")
+>>>>>>> 31641bcfdb5df1a2a01e39429b802061c92eab4d
 }

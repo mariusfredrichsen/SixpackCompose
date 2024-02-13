@@ -15,6 +15,15 @@ import no.uio.ifi.in2000.mafredri.sixpackcompose.ui.theme.SixpackComposeTheme
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "AuthLeak")
     override fun onCreate(savedInstanceState: Bundle?) {
+<<<<<<< HEAD
+
+        /*val connectionString = "mongodb+srv://marius:po2XxJKx9NQC7P4U@discord.7b4in8d.mongodb.net/"
+        val mongoClient = MongoClient.create(connectionString)
+        val database = mongoClient.getDatabase("SixpackCompose")
+        println(database.name) */
+
+=======
+>>>>>>> 31641bcfdb5df1a2a01e39429b802061c92eab4d
         super.onCreate(savedInstanceState)
         setContent {
             SixpackComposeTheme {
