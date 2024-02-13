@@ -9,14 +9,17 @@ import no.uio.ifi.in2000.mafredri.sixpackcompose.model.Exercises
 
 
 class ExercisesDatasource() {
-    private val url = "https://localhost:3000/"
+    private val url = "http://129.151.216.198:3000/"
 
     fun fetchExercises(): MutableList<Exercise> {
-        val exercises: Exercises
-        runBlocking {
-            val httpResponse = ApiClient.client.get(url)
-            exercises = httpResponse.body()
+        return try {
+            runBlocking {
+                val exercises: Exercises = ApiClient.client.get(url).body()
+                exercises.exercises.toMutableList()
+            }
+        } catch (e: Exception) {
+            println("HHJEEEEELPPP")
+            mutableListOf()
         }
-        return exercises.exercises.toMutableList()
     }
 }
