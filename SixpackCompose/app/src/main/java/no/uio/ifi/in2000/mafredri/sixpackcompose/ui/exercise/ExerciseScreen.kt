@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -64,6 +65,7 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
     val focusManager = LocalFocusManager.current
 
     var showAlertDialog by remember { mutableStateOf(false) }
+    var exerciseAlertDialog: Exercise? by remember { mutableStateOf(null) }
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -138,28 +140,21 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
                 Row(
                     modifier = Modifier
                         .padding(bottom = 4.dp)
-                        .background(Color(0xffd9d9d9))
-                        .fillMaxWidth(),
+                        .background(Color(0xffd9d9d9)),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(8.dp)
-                    ) {
+                    Column() {
                         Row {
                             Text(
                                 text = exercise.name,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier
-                                    .padding(end = 5.dp)
                             )
                             Icon(
                                 imageVector = Icons.Filled.Create,
                                 contentDescription = null,
-                                modifier = Modifier
-                                    .size(20.dp))
+                            )
                         }
                         Text(
                             text = exercise.desc,
@@ -167,24 +162,22 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
                             lineHeight = 14.sp
                         )
                     }
-                    Column {
-                        IconButton(
-                            onClick = { showAlertDialog = true },
-                            modifier = Modifier
-                                .padding(8.dp)
-                        ) {
-                            Icon(imageVector = Icons.Filled.Clear, contentDescription = null)
-                        }
+                    IconButton(
+                        onClick = { showAlertDialog = true; exerciseAlertDialog = exercise },
+                        modifier = Modifier
+                            .size(80.dp)
+                    ) {
+                        Icon(imageVector = Icons.Filled.Clear, contentDescription = null, modifier = Modifier.fillMaxSize())
                     }
                 }
-                when {
-                    showAlertDialog -> DeleteExerciseDialog(
-                        { showAlertDialog = false },
-                        { exerciseViewModel.removeExercise(exercise); showAlertDialog = false },
-                        exercise.name
-                    )
-                }
             }
+        }
+        if (showAlertDialog && (exerciseAlertDialog != null)) {
+            DeleteExerciseDialog(
+                { showAlertDialog = false },
+                { exerciseViewModel.removeExercise(exerciseAlertDialog!!); showAlertDialog = false },
+                exerciseAlertDialog!!.name
+            )
         }
     }
 }
