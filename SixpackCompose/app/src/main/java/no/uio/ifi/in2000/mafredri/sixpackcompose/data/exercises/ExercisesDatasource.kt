@@ -18,7 +18,7 @@ class ExercisesDatasource() {
                 exercises.exercises.toMutableList()
             }
         } catch (e: Exception) {
-            println("HHJEEEEELPPP")
+            println(e)
             mutableListOf()
         }
     }

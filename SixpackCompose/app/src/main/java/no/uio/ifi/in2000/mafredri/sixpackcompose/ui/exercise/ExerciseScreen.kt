@@ -17,7 +17,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import no.uio.ifi.in2000.mafredri.sixpackcompose.model.Exercise
@@ -50,13 +57,12 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
     var exerciseDesc by remember { mutableStateOf("") }
 
     var errorColor by remember { mutableStateOf(Color.DarkGray) }
-<<<<<<< HEAD:SixpackCompose/app/src/main/java/no/uio/ifi/in2000/mafredri/sixpackcompose/ExerciseScreen.kt
-    val exercisesUI by exerciseViewModel.exercisesUiState.collectAsState()
+    val exercisesUI by exerciseViewModel.exercisesUIState.collectAsState()
     val state = rememberUpdatedState(exercisesUI.exercises)
-=======
 
->>>>>>> 31641bcfdb5df1a2a01e39429b802061c92eab4d:SixpackCompose/app/src/main/java/no/uio/ifi/in2000/mafredri/sixpackcompose/ui/exercise/ExerciseScreen.kt
     val focusManager = LocalFocusManager.current
+
+    var showAlertDialog by remember { mutableStateOf(false) }
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -127,49 +133,57 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
         )
         LazyColumn(
         ) {
-<<<<<<< HEAD:SixpackCompose/app/src/main/java/no/uio/ifi/in2000/mafredri/sixpackcompose/ExerciseScreen.kt
-            itemsIndexed(state.value) { index, exercise ->
-=======
             items(exercisesUIState.exercises) { exercise ->
->>>>>>> 31641bcfdb5df1a2a01e39429b802061c92eab4d:SixpackCompose/app/src/main/java/no/uio/ifi/in2000/mafredri/sixpackcompose/ui/exercise/ExerciseScreen.kt
                 Row(
                     modifier = Modifier
-
                         .padding(bottom = 4.dp)
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(Color(0xffd9d9d9)),
-                    verticalAlignment = Alignment.CenterVertically
+                        .background(Color(0xffd9d9d9))
                 ) {
                     Column(
                         modifier = Modifier
                             .padding(8.dp)
                     ) {
+                        Row {
+                            Text(
+                                text = exercise.name,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier
+                                    .padding(end = 5.dp)
+                            )
+                            Icon(
+                                imageVector = Icons.Filled.Create,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(20.dp))
+                        }
                         Text(
-                            text = exercise.name,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = exercise.desc + "\n${exercisesUIState.exercises.size}",
+                            text = exercise.desc,
                             fontSize = 12.sp,
                             lineHeight = 14.sp
                         )
                     }
-                    Spacer(modifier = Modifier.weight(1f))
 
-                    AsyncImage(
-                        model = "https://raw.githubusercontent.com/mariusfredrichsen/SixpackCompose/main/images/delete.png",
-                        contentDescription = null,
+                    IconButton(
+                        onClick = { showAlertDialog = true },
                         modifier = Modifier
-                            .size(20.dp)
-                            .clickable {
-                                exerciseViewModel.removeExercise(exercise)
+                            .padding(8.dp)
+                    ) {
+                        AsyncImage(
+                            model = "https://raw.githubusercontent.com/mariusfredrichsen/SixpackCompose/main/images/delete.png",
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(20.dp)
+                        )
+                    }
 
-                            }
-                    )
-
-                    Spacer(modifier = Modifier.padding(4.dp))
+                    when {
+                        showAlertDialog -> DeleteExerciseDialog(
+                            { showAlertDialog = false },
+                            { exerciseViewModel.removeExercise(exercise); showAlertDialog = false },
+                            exercise.name
+                        )
+                    }
                 }
             }
         }
