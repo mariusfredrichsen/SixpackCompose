@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -138,6 +139,9 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
                     modifier = Modifier
                         .padding(bottom = 4.dp)
                         .background(Color(0xffd9d9d9))
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Column(
                         modifier = Modifier
@@ -163,27 +167,22 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
                             lineHeight = 14.sp
                         )
                     }
-
-                    IconButton(
-                        onClick = { showAlertDialog = true },
-                        modifier = Modifier
-                            .padding(8.dp)
-                    ) {
-                        AsyncImage(
-                            model = "https://raw.githubusercontent.com/mariusfredrichsen/SixpackCompose/main/images/delete.png",
-                            contentDescription = null,
+                    Column {
+                        IconButton(
+                            onClick = { showAlertDialog = true },
                             modifier = Modifier
-                                .size(20.dp)
-                        )
+                                .padding(8.dp)
+                        ) {
+                            Icon(imageVector = Icons.Filled.Clear, contentDescription = null)
+                        }
                     }
-
-                    when {
-                        showAlertDialog -> DeleteExerciseDialog(
-                            { showAlertDialog = false },
-                            { exerciseViewModel.removeExercise(exercise); showAlertDialog = false },
-                            exercise.name
-                        )
-                    }
+                }
+                when {
+                    showAlertDialog -> DeleteExerciseDialog(
+                        { showAlertDialog = false },
+                        { exerciseViewModel.removeExercise(exercise); showAlertDialog = false },
+                        exercise.name
+                    )
                 }
             }
         }
