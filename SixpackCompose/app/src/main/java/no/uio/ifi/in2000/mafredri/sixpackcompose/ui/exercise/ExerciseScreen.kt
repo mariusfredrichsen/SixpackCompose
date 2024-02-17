@@ -13,10 +13,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
@@ -135,16 +137,21 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
                 .padding(top = 12.dp, bottom = 8.dp)
         )
         LazyColumn(
+            modifier = Modifier
+                .height(440.dp)
         ) {
             items(exercisesUIState.exercises) { exercise ->
                 Row(
                     modifier = Modifier
                         .padding(bottom = 4.dp)
+                        .clip(RoundedCornerShape(10))
                         .background(Color(0xffd9d9d9)),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+
                 ) {
-                    Column() {
+                    Column(
+                        modifier = Modifier
+                            .padding(4.dp)
+                    ) {
                         Row {
                             Text(
                                 text = exercise.name,
@@ -156,10 +163,11 @@ fun ExerciseScreen(exerciseViewModel: ExerciseViewModel = viewModel()) {
                                 contentDescription = null,
                             )
                         }
-                        Text(
+                        BasicText(
                             text = exercise.desc,
-                            fontSize = 12.sp,
-                            lineHeight = 14.sp
+                            modifier = Modifier
+                                .width(340.dp)
+
                         )
                     }
                     IconButton(
